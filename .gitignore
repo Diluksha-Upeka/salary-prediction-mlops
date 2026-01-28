@@ -1,0 +1,47 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+
+# ---- Testing ----
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
+
+# ---- Tooling / IDEs ----
+.vscode/
+.idea/
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- Secrets / env files ----
+.env
+.env.*
+
+# ---- Model artifacts (generated) ----
+model/*.pkl
+model/*.joblib
+
+# ---- Jupyter (optional) ----
+.ipynb_checkpoints/
+
+# ---- Logs ----
+*.log
+
+# ---- Local-only folders (optional) ----
+.azure/
