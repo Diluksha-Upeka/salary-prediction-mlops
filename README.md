@@ -1,6 +1,6 @@
 # salary-prediction-mlops
 
-This is a small MLOps-style project where we train a simple salary prediction model and serve it with a web API + a clean UI.
+This project demonstrates a complete Machine Learning Lifecycle from training a Linear Regression model to deploying a containerized API in the cloud. It features a CI/CD pipeline with GitHub Actions for automated testing and uses Docker to ensure production consistency.
 
 ## Folder structure (what’s where)
 - `data/salaries.csv` — the dataset
