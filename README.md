@@ -1,33 +1,52 @@
 # salary-prediction-mlops
 
-Minimal salary prediction project scaffold.
+This is a small MLOps-style project where we train a simple salary prediction model and serve it with a web API + a clean UI.
 
-## Project layout
-- `data/salaries.csv` — training data
-- `src/train.py` — trains a simple model and saves it to `model/model.joblib`
-- `src/app.py` — FastAPI service that loads the model and serves predictions
-- `tests/test_api.py` — basic API tests
+## Folder structure (what’s where)
+- `data/salaries.csv` — the dataset
+- `src/train.py` — trains the model and saves it into the `model/` folder
+- `src/app.py` — Flask app (serves the UI + API)
+- `src/templates/index.html` — the frontend page (Tailwind CSS)
+- `model/` — trained model file gets saved here (generated)
+- `tests/test_api.py` — quick pytest checks
 
-## Quickstart (local)
+## Run it locally
 ```bash
 python -m venv .venv
 # Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
+
 pip install -r requirements.txt
 
-# Train (optional)
+# 1) Train the model
 python src/train.py
 
-# Run API
-python -m uvicorn src.app:app --reload
+# 2) Start the web app
+python src/app.py
 ```
 
-## Quickstart (Docker)
+Open your browser:
+- UI: `http://127.0.0.1:5000/`
+- Health check: `http://127.0.0.1:5000/health`
+
+## API endpoints
+- `GET /health`
+	- Returns something like: `{ "status": "healthy", "model_loaded": true }`
+
+- `POST /predict`
+	- JSON body example: `{ "experience": 3.5 }`
+	- Returns something like:
+		- `{ "status": "success", "experience_years": 3.5, "predicted_salary": 12345.67 }`
+
+## Run with Docker
 ```bash
 docker build -t salary-prediction .
-docker run -p 8000:8000 salary-prediction
+docker run -p 5000:5000 salary-prediction
 ```
 
-## API
-- `GET /health`
-- `POST /predict` with JSON: `{ "years_experience": 5 }`
+Then open: `http://127.0.0.1:5000/`
+
+## Run tests
+```bash
+pytest -q
+```
