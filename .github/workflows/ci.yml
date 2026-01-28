@@ -1,19 +1,25 @@
+# CI : "Did this new code break anything?"
+# .github/workflows/ci.yml 
+# Location: Github Actions
+
+# When code is pushed to the repository, this workflow will run
+
 name: CI Pipeline
 
-on: [push]
+on: [push]      # Trigger the workflow on any push to the repository
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner from GitHub
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3   # Check out the repository code
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v3 # Set up Python environment
         with:
           python-version: '3.9'
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Train Model
+      - name: Install dependencies    # Install required Python packages
+        run: pip install -r requirements.txt  
+      - name: Train Model       # Train the model to ensure training code works
         run: python src/train.py
-      - name: Run Tests
-        run: pytest
+      - name: Run Tests         # Run tests to ensure nothing is broken
+        run: pytest;
