@@ -23,4 +23,7 @@ EXPOSE 5000
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "src.app:app"]
 
 
+# To build the image: docker build -t my-ml-app .
+# To run the container: docker run -p 5000:5000 my-ml-app
+
 # CD - "Get the new code to the users quickly"
