@@ -34,18 +34,21 @@ def test_home_page_returns_html(client):    # Test the home page endpoint
     assert 'text/html' in response.content_type
 
 
-def test_predict_requires_post(client):
+def test_predict_requires_post(client):     # Test the predict endpoint
+    """Test that /predict only allows POST requests"""
     response = client.get('/predict')
     assert response.status_code == 405
 
-
-def test_predict_returns_500_when_model_not_loaded(client, monkeypatch):
+# Monkeypatching allows us to modify the behavior of objects for testing purposes.
+def test_predict_returns_500_when_model_not_loaded(client, monkeypatch):  
+    """Test that /predict returns 500 when the model is not loaded"""
     monkeypatch.setattr(app_module, 'model', None)
     response = client.post('/predict', json={'experience': 3})
     assert response.status_code == 500
     assert 'error' in response.json
 
 
+# Test the happy path of the predict endpoint with a dummy model
 def test_predict_happy_path_with_dummy_model(client, monkeypatch):
     class DummyModel:
         def predict(self, X):
@@ -61,7 +64,7 @@ def test_predict_happy_path_with_dummy_model(client, monkeypatch):
     assert data['predicted_salary'] == 12345.68
 
 
-@pytest.mark.parametrize(
+@pytest.mark.parametrize(   # Parameterized test for bad payloads
     'payload',
     [
         None,
@@ -70,7 +73,7 @@ def test_predict_happy_path_with_dummy_model(client, monkeypatch):
         {'experience': 'not-a-number'},
     ],
 )
-def test_predict_bad_payload_returns_400(client, monkeypatch, payload):
+def test_predict_bad_payload_returns_400(client, monkeypatch, payload): # Test bad payloads for /predict
     class DummyModel:
         def predict(self, X):
             return [1]
