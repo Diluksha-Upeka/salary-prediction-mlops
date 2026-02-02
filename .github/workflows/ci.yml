@@ -8,7 +8,7 @@ name: CI Pipeline
 
 on: [push]      # Trigger the workflow on any push to the repository
 
-jobs:
+jobs:   # "job" is an isolated VM
   build-test:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner from GitHub
     steps:
@@ -22,4 +22,4 @@ jobs:
       - name: Train Model       # Train the model to ensure training code works
         run: python src/train.py
       - name: Run Tests         # Run tests to ensure nothing is broken
-        run: pytest;
+        run: pytest
